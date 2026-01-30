@@ -64,4 +64,9 @@ if (!mysqli_query($conn, "INSERT INTO `kategori` (`category_name`) VALUES ('Fasi
     die('Error seeding kategori: ' . mysqli_error($conn));
 }
 
+$adminUsername = 'admin';
+$adminPassword = password_hash('admin123', PASSWORD_BCRYPT);
+if (!mysqli_query($conn, "INSERT INTO `admin` (`username`, `password`) VALUES ('$adminUsername', '$adminPassword')")) {
+    die('Error seeding admin: ' . mysqli_error($conn));
+}
 echo "Tables created successfully.";
