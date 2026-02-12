@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/connection.php';
+require_once dirname(__DIR__, 2) . '/app/bootstrap.php';
 
 $nis            = trim($_POST['nis']);
 $fullName       = trim($_POST['full_name']);
@@ -14,11 +14,11 @@ mysqli_query($conn, $sqlSiswa);
 
 $sqlAspirasi = "INSERT INTO input_aspirasi (nis, category_id, location, description)"
     .  "VALUES ($nis, $categoryId, '$location', '$description')";
-    mysqli_query($conn, $sqlAspirasi);
+mysqli_query($conn, $sqlAspirasi);
 
 $aspirationId = mysqli_insert_id($conn);
 $sqlAspirasiDetail = "INSERT INTO aspirasi (aspiration_id) VALUES ($aspirationId)";
 mysqli_query($conn, $sqlAspirasiDetail);
 
-header('Location: index.php?message=succes');
+header('Location: ' . BASE_PATH .'/?message=succes');
 ?>  

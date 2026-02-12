@@ -1,13 +1,11 @@
-    <?php
-    require_once __DIR__ . '/connection.php';
-
+<?php
+    require_once dirname(__DIR__, 2) . '/app/bootstrap.php';
     $result = mysqli_query($conn, "SELECT id, category_name FROM kategori ORDER BY id");
-    ?>
-
-
+?>
+<!-- HTML -->
     <h1>Aplikasi Pengaduan Sarana Sekolah</h1>
 
-    <form action="save_aspirasi.php" method="post">
+    <form action="<?= BASE_PATH ?>/save_aspirasi" method="post">
 
         <label for="NIS">NIS</label>
         <input type="text" name="nis">
@@ -17,11 +15,11 @@
         <input type="text" name="full_name">
         <br>
 
-        <label for="">Kelas</label>
+        <label for="Kelas">Kelas</label>
         <input type="text" name="class">
         <br>
 
-        <label for="">Kategori</label>
+        <label for="Kelas">Kategori</label>
         <select name="category" id="">
         <?php while ($row = mysqli_fetch_assoc($result)) {?>
                 <option value="<?php echo $row['id']; ?>">
@@ -39,8 +37,8 @@
         <textarea name="description" id="" cols="30" rows="10"></textarea>
         <br>
 
-        <input type="submit"  value="Submit">
         
+        <input type="submit"  value="Submit">
     </form>
 
     <table border="1" cellpadding="10" cellspacing="0">

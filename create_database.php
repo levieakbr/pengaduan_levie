@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/connection.php';
+require_once __DIR__ . '/public/connection.php';
 
 $dropQueries = [
     "DROP TABLE IF EXISTS `aspirasi`",
@@ -11,11 +11,11 @@ $dropQueries = [
 
 $queries = [
     "CREATE TABLE IF NOT EXISTS `admin` (\n"
-        ." `id` int(11) NOT NULL AUTO_INCREMENT,\n"
-        ." `username` varchar(20) NOT NULL,\n"
-        ." `password` varchar(100) NOT NULL,\n"
-        ." PRIMARY KEY (`id`)\n"
-        .") ENGINE=InnoDB DEFAULT CHARSET=utf8",
+        . " `id` int(11) NOT NULL AUTO_INCREMENT,\n"
+        . " `username` varchar(20) NOT NULL,\n"
+        . " `password` varchar(100) NOT NULL,\n"
+        . " PRIMARY KEY (`id`)\n"
+        . ") ENGINE=InnoDB DEFAULT CHARSET=utf8",
     "CREATE TABLE IF NOT EXISTS `kategori` (\n"
         ." `id` int(11) NOT NULL AUTO_INCREMENT,\n"
         ." `category_name` varchar(30) NOT NULL,\n"
@@ -28,7 +28,7 @@ $queries = [
         ." PRIMARY KEY (`nis`)\n"
         .") ENGINE=InnoDB DEFAULT CHARSET=utf8",
     "CREATE TABLE IF NOT EXISTS `input_aspirasi` (\n"
-        ." `id` int(11) NOT NULL AUTO_INCREMENT,\n"
+        ." `id` int(11) NOT NULL AUTO_INCREMENT,\n"                                                                                 
         ." `nis` int(10) NOT NULL,\n"
         ." `category_id` int(11) NOT NULL,\n"
         ." `location` varchar(100) NOT NULL,\n"
@@ -42,13 +42,13 @@ $queries = [
     "CREATE TABLE IF NOT EXISTS `aspirasi` (\n"
         ." `aspiration_id` int(11) NOT NULL,\n"
         ." `status` enum('menunggu','proses','selesai') NOT NULL DEFAULT 'menunggu',\n"
-        ." `feedback` text NULL,\n"
+        ." `feedback` text NULL,\n" 
         ." KEY `aspiration_id` (`aspiration_id`),\n"
         ." CONSTRAINT `aspirasi_ibfk_1` FOREIGN KEY (`aspiration_id`) REFERENCES `input_aspirasi` (`id`) ON DELETE CASCADE\n"
-        .") ENGINE=InnoDB DEFAULT CHARSET=utf8",
-];
+        .") ENGINE=InnoDB DEFAULT CHARSET=utf8",    
+];                                                                              
 
-    foreach ($dropQueries as $sql) {
+foreach ($dropQueries as $sql) {
     if (!mysqli_query($conn, $sql)) {
         die('Error dropping table: ' . mysqli_error($conn));
     }
@@ -69,4 +69,6 @@ $adminPassword = password_hash('admin123', PASSWORD_BCRYPT);
 if (!mysqli_query($conn, "INSERT INTO `admin` (`username`, `password`) VALUES ('$adminUsername', '$adminPassword')")) {
     die('Error seeding admin: ' . mysqli_error($conn));
 }
+
 echo "Tables created successfully.";
+?>
